@@ -1,8 +1,9 @@
 document.addEventListener("DOMContentLoaded", function () {
-
   const page = document.querySelector(".lander-frost-page");
 
-  if (!page) return;
+  if (!page) {
+    return;
+  }
 
   const preparing = page.querySelector("#preparing");
   const ready = page.querySelector("#ready");
@@ -10,10 +11,11 @@ document.addEventListener("DOMContentLoaded", function () {
   const progressBar = page.querySelector("#progressBar");
   const timer = page.querySelector("#timer");
 
-  let seconds = 3;
+  /* Preparation countdown */
+  const preparationDuration = 3;
+  let seconds = preparationDuration;
 
-  const preparation = setInterval(function () {
-
+  const preparationTimer = setInterval(function () {
     seconds--;
 
     if (countdown) {
@@ -21,12 +23,14 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     if (progressBar) {
-      progressBar.style.width = ((3 - seconds) / 3) * 100 + "%";
+      const progress =
+        ((preparationDuration - seconds) / preparationDuration) * 100;
+
+      progressBar.style.width = progress + "%";
     }
 
     if (seconds <= 0) {
-
-      clearInterval(preparation);
+      clearInterval(preparationTimer);
 
       if (preparing) {
         preparing.style.display = "none";
@@ -36,30 +40,29 @@ document.addEventListener("DOMContentLoaded", function () {
         ready.style.display = "block";
       }
 
-      startTimer();
+      startExpirationTimer();
     }
-
   }, 1000);
 
-
-  function startTimer() {
-
+  /* Five-minute expiration timer */
+  function startExpirationTimer() {
     let remaining = 300;
+    let expirationTimer;
 
     function updateTimer() {
-
       const minutes = Math.floor(remaining / 60);
-      const secs = remaining % 60;
+      const secondsLeft = remaining % 60;
 
       if (timer) {
         timer.textContent =
           String(minutes).padStart(2, "0") +
           ":" +
-          String(secs).padStart(2, "0");
+          String(secondsLeft).padStart(2, "0");
       }
 
       if (remaining <= 0) {
         clearInterval(expirationTimer);
+        return;
       }
 
       remaining--;
@@ -67,7 +70,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     updateTimer();
 
-    const expirationTimer = setInterval(updateTimer, 1000);
+    expirationTimer = setInterval(updateTimer, 1000);
   }
-
 });
