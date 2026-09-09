@@ -16,14 +16,6 @@ body {
 }
 
 .lander-frost-page {
-  --bg: #060b12;
-  --card: rgba(20, 35, 48, 0.45);
-  --accent: #6cd4f0;
-  --text: #eef7fb;
-  --muted: #93aebd;
-  --dim: #5c7382;
-  --border: rgba(108, 212, 240, 0.16);
-
   width: 100%;
   min-height: 100vh;
   padding: 24px;
@@ -43,9 +35,9 @@ body {
       rgba(37, 150, 201, 0.12),
       transparent 45%
     ),
-    var(--bg);
+    #060b12;
 
-  color: var(--text);
+  color: #eef7fb;
 
   font-family:
     -apple-system,
@@ -55,8 +47,6 @@ body {
     Helvetica,
     Arial,
     sans-serif;
-
-  overflow: hidden;
 }
 
 .lander-frost {
@@ -69,8 +59,6 @@ body {
 }
 
 .frost-card {
-  position: relative;
-
   width: 100%;
   max-width: 560px;
 
@@ -78,22 +66,18 @@ body {
 
   text-align: center;
 
-  background: var(--card);
+  background: rgba(20, 35, 48, 0.45);
 
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
 
-  border: 1px solid var(--border);
+  border: 1px solid rgba(108, 212, 240, 0.16);
   border-radius: 22px;
 
   box-shadow:
     0 24px 60px rgba(0, 0, 0, 0.5),
     inset 0 1px 0 rgba(255, 255, 255, 0.08);
-
-  overflow: hidden;
 }
-
-/* Download icon */
 
 .download-icon {
   width: 64px;
@@ -108,9 +92,10 @@ body {
   border-radius: 18px;
 
   background: rgba(108, 212, 240, 0.08);
+
   border: 1px solid rgba(108, 212, 240, 0.18);
 
-  color: var(--accent);
+  color: #6cd4f0;
 }
 
 .download-icon svg {
@@ -118,32 +103,24 @@ body {
   height: 30px;
 }
 
-/* Title */
-
 .frost-card h1 {
   margin: 0;
 
-  color: var(--text);
+  color: #eef7fb;
 
   font-size: 30px;
   line-height: 1.2;
   font-weight: 700;
-
-  letter-spacing: -0.5px;
 }
-
-/* Subtitle */
 
 .subtitle {
   margin: 12px 0 0;
 
-  color: var(--muted);
+  color: #93aebd;
 
   font-size: 14px;
   line-height: 1.6;
 }
-
-/* Preparing section */
 
 .preparing {
   margin-top: 30px;
@@ -156,7 +133,7 @@ body {
   margin: 0 auto 15px;
 
   border: 3px solid rgba(108, 212, 240, 0.15);
-  border-top-color: var(--accent);
+  border-top-color: #6cd4f0;
 
   border-radius: 50%;
 
@@ -164,22 +141,24 @@ body {
 }
 
 @keyframes frost-spin {
+  from {
+    transform: rotate(0deg);
+  }
+
   to {
     transform: rotate(360deg);
   }
 }
 
 .prepare-text {
-  color: var(--muted);
+  color: #93aebd;
   font-size: 14px;
 }
 
 .prepare-text strong {
-  color: var(--accent);
+  color: #6cd4f0;
   margin-left: 5px;
 }
-
-/* Progress bar */
 
 .progress {
   width: 100%;
@@ -200,12 +179,10 @@ body {
 
   border-radius: 100px;
 
-  background: var(--accent);
+  background: #6cd4f0;
 
-  transition: width 0.15s linear;
+  transition: width 0.2s linear;
 }
-
-/* Ready section */
 
 .ready {
   display: none;
@@ -215,17 +192,15 @@ body {
 .timer-text {
   margin-bottom: 20px;
 
-  color: var(--muted);
+  color: #93aebd;
 
   font-size: 13px;
 }
 
 .timer-text strong {
-  color: var(--accent);
+  color: #6cd4f0;
   margin-left: 5px;
 }
-
-/* Download button */
 
 .file-download-btn {
   display: inline-flex;
@@ -249,43 +224,25 @@ body {
   font-size: 16px;
   font-weight: 600;
 
-  font-family:
-    Georgia,
-    "Times New Roman",
-    serif;
+  font-family: Georgia, "Times New Roman", serif;
 
   text-decoration: none;
 
-  box-shadow:
-    inset 0 -8px 11px 0 rgba(0, 0, 0, 0.3);
+  box-shadow: inset 0 -8px 11px rgba(0, 0, 0, 0.3);
 
   cursor: pointer;
 
-  transition:
-    transform 0.18s ease,
-    filter 0.18s ease,
-    box-shadow 0.18s ease;
+  transition: 0.18s ease;
 }
 
 .file-download-btn:hover {
   transform: translateY(-4px) scale(1.05);
-
   filter: brightness(1.15);
 
   box-shadow:
-    inset 0 -8px 11px 0 rgba(0, 0, 0, 0.3),
+    inset 0 -8px 11px rgba(0, 0, 0, 0.3),
     0 14px 26px rgba(0, 0, 0, 0.35);
 }
-
-.file-download-btn:active {
-  transform: translateY(-1px) scale(1.01);
-}
-
-.file-download-btn svg {
-  flex-shrink: 0;
-}
-
-/* Trust information */
 
 .trust-row {
   display: flex;
@@ -299,23 +256,19 @@ body {
 
   margin-top: 28px;
 
-  color: var(--dim);
+  color: #5c7382;
 
   font-size: 11px;
 }
 
-/* Footer text */
-
 .footnote {
   margin-top: 24px;
 
-  color: var(--dim);
+  color: #5c7382;
 
   font-size: 10px;
   line-height: 1.5;
 }
-
-/* Mobile */
 
 @media (max-width: 600px) {
   .lander-frost-page {
@@ -343,9 +296,5 @@ body {
     width: 100%;
     min-width: 0;
     padding: 14px 20px;
-  }
-
-  .trust-row {
-    gap: 8px;
   }
 }
