@@ -1,75 +1,78 @@
-document.addEventListener("DOMContentLoaded", function () {
-  const page = document.querySelector(".lander-frost-page");
+(function () {
+  "use strict";
 
-  if (!page) {
-    return;
-  }
+  function init() {
+    var preparing = document.getElementById("preparing");
+    var ready = document.getElementById("ready");
+    var countdown = document.getElementById("countdown");
+    var progressBar = document.getElementById("progressBar");
+    var timer = document.getElementById("timer");
 
-  const preparing = page.querySelector("#preparing");
-  const ready = page.querySelector("#ready");
-  const countdown = page.querySelector("#countdown");
-  const progressBar = page.querySelector("#progressBar");
-  const timer = page.querySelector("#timer");
-
-  /* Preparation countdown */
-  const preparationDuration = 3;
-  let seconds = preparationDuration;
-
-  const preparationTimer = setInterval(function () {
-    seconds--;
-
-    if (countdown) {
-      countdown.textContent = seconds;
+    if (!preparing || !ready || !countdown) {
+      console.error("Download page elements were not found.");
+      return;
     }
+
+    var total = 3;
+    var remaining = total;
+
+    countdown.textContent = remaining;
 
     if (progressBar) {
-      const progress =
-        ((preparationDuration - seconds) / preparationDuration) * 100;
-
-      progressBar.style.width = progress + "%";
+      progressBar.style.width = "0%";
     }
 
-    if (seconds <= 0) {
-      clearInterval(preparationTimer);
+    var preparationTimer = setInterval(function () {
+      remaining--;
 
-      if (preparing) {
-        preparing.style.display = "none";
-      }
+      countdown.textContent = remaining;
 
-      if (ready) {
-        ready.style.display = "block";
-      }
-
-      startExpirationTimer();
-    }
-  }, 1000);
-
-  /* Five-minute expiration timer */
-  function startExpirationTimer() {
-    let remaining = 300;
-    let expirationTimer;
-
-    function updateTimer() {
-      const minutes = Math.floor(remaining / 60);
-      const secondsLeft = remaining % 60;
-
-      if (timer) {
-        timer.textContent =
-          String(minutes).padStart(2, "0") +
-          ":" +
-          String(secondsLeft).padStart(2, "0");
+      if (progressBar) {
+        var percent = ((total - remaining) / total) * 100;
+        progressBar.style.width = percent + "%";
       }
 
       if (remaining <= 0) {
-        clearInterval(expirationTimer);
-        return;
+        clearInterval(preparationTimer);
+
+        preparing.style.display = "none";
+        ready.style.display = "block";
+
+        startTimer();
+      }
+    }, 1000);
+
+    function startTimer() {
+      var secondsLeft = 300;
+
+      function update() {
+        var minutes = Math.floor(secondsLeft / 60);
+        var seconds = secondsLeft % 60;
+
+        if (timer) {
+          timer.textContent =
+            String(minutes).padStart(2, "0") +
+            ":" +
+            String(seconds).padStart(2, "0");
+        }
+
+        if (secondsLeft <= 0) {
+          clearInterval(expirationTimer);
+          return;
+        }
+
+        secondsLeft--;
       }
 
-      remaining--;
+      update();
+
+      var expirationTimer = setInterval(update, 1000);
     }
-
-    updateTimer();
-
-    expirationTimer = setInterval(updateTimer, 1000);
   }
-});
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
+  }
+})();
